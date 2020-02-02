@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SevenWondersCommon
 {
@@ -11,6 +12,6 @@ namespace SevenWondersCommon
         public string Nazwa { get; set; }
         public List<Cod> Coda { get; set; }
         public List<Efekt> Efekty { get; set; }
-        public string Obrazek { get; set; }
+        public ImageSource Obrazek { get; set; }
     }
 }

@@ -8,13 +8,15 @@ namespace SevenWondersCommon
 {
     public class Efekt
     {
-        public Efekt(Dzialanie dzialanie, int ilosc = 1)
+        public Efekt(TypEfektu typ, Dzialanie dzialanie, int ilosc = 1)
         {
             Ilosc = ilosc;
             Dzialanie = dzialanie;
+            Typ = typ;
         }
         public int Ilosc { get; set; }
         public Dzialanie Dzialanie { get; set; }
+        public TypEfektu Typ { get; set; }
     }
     public enum Dzialanie
     {
@@ -23,6 +25,21 @@ namespace SevenWondersCommon
         DodajKamien,
         DodajSzklo,
         DodajPapier,
-        DodajTkanine
+        DodajTkanine,
+        DodajCegle,
+        DodajPunkty,
+        TaniHandelZLewymSasiadem,
+        TaniHandelZPrawymSasiadem,
+        KopiowanieGildiiOdSasiadow,
+    }
+    public enum TypEfektu
+    {
+        Natychmiastowy,
+        Produkcja,
+        JednorazowayEra,
+        JednorazowyGra,
+        LiczeniePunktow,
+        Pojedynek,
+        Handel
     }
 }

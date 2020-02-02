@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SevenWondersCommon
 {
@@ -14,7 +15,8 @@ namespace SevenWondersCommon
         public List<Symbol> Symbole { get; set; }
         public Karta KartaRabatowa { get; set; }
         public List<Karta> KartyDoRabatu { get; set; }
-        public string Obrazek { get; set; }
+        public ImageSource Obrazek { get; set; }
+        public KolorKarty Kolor { get; set; }
     }
     public enum Symbol
     {
@@ -27,5 +29,15 @@ namespace SevenWondersCommon
         Wojna,
         Punkt,
         Moneta
+    }
+    public enum KolorKarty
+    {
+        Czerwona,
+        Zielona,
+        Niebieska,
+        Zolta,
+        Brazowa,
+        Szara,
+        Fioletowa
     }
 }
