@@ -12,6 +12,6 @@ namespace SevenWondersCommon
         public string Nazwa { get; set; }
         public List<Cod> Coda { get; set; }
         public List<Efekt> Efekty { get; set; }
-        public ImageSource Obrazek { get; set; }
+        public object Obrazek { get; set; }
     }
 }

@@ -24,6 +24,13 @@
             <!--<StackPanel.Background>
                 <ImageBrush ImageSource="{Binding Gracz.Miasto.Obrazek}" Stretch="Uniform"/>
             </StackPanel.Background>-->
+            <ListBox ItemsSource="{Binding Gracze}" ItemTemplate="{StaticResource PrzeciwnikTemplate}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
             <ListBox ItemsSource="{Binding Karty}">

@@ -9,7 +9,7 @@ namespace SevenWondersCommon
     public class Cod
     {
         public int Poziom { get; set; }
-        public Dictionary<RodzajSurowca, int> Koszt { get; set; }
+        public List<Surowiec> Koszt { get; set; }
         public List<Efekt> Efekty { get; set; }
     }
 }

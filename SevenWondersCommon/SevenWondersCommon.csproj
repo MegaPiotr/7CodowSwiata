@@ -49,6 +49,7 @@
     <Compile Include="Miasto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RodzajSurowca.cs" />
+    <Compile Include="Surowiec.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

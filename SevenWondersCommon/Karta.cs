@@ -10,12 +10,12 @@ namespace SevenWondersCommon
     public class Karta
     {
         public string Nazwa { get; set; }
-        public Dictionary<RodzajSurowca, int> Koszt { get; set; }
+        public List<Surowiec> Koszt { get; set; }
         public List<Efekt> Efekty { get; set; }
         public List<Symbol> Symbole { get; set; }
         public Karta KartaRabatowa { get; set; }
         public List<Karta> KartyDoRabatu { get; set; }
-        public ImageSource Obrazek { get; set; }
+        public object Obrazek { get; set; }
         public KolorKarty Kolor { get; set; }
     }
     public enum Symbol

@@ -9,7 +9,7 @@ namespace SevenWondersCommon
     public class Gracz
     {
         public string Nazwa { get; set; }
-        public Dictionary<RodzajSurowca, int> Zasoby { get; set; }
+        public List<Surowiec> Zasoby { get; set; }
         public Dictionary<WartoscZetonuWojny, int> ZetonyWojny { get; set; }
         public List<Karta> Karty { get; set; }
         public Miasto Miasto { get; set; }

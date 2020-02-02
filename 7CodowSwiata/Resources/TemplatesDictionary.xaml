@@ -1,14 +1,23 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:_7CodowSwiata.Resources"
-                    xmlns:types="clr-namespace:SevenWondersCommon;assembly=SevenWondersCommon">
+                    xmlns:types="clr-namespace:SevenWondersCommon;assembly=SevenWondersCommon"
+                    xmlns:converters="clr-namespace:_7CodowSwiata.Converter">
+    <converters:ColorEnumConverter x:Key="ColorEnumConverter" />
+    <DataTemplate x:Key="KartaTemplate" DataType="{x:Type types:Karta}">
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <DockPanel.Background>
+                <SolidColorBrush Color="{Binding Kolor, Converter={StaticResource ColorEnumConverter}}"/>
+            </DockPanel.Background>
+        <TextBlock Text="{Binding Nazwa}" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DockPanel.Dock="Top"/>
+        </DockPanel>
+    </DataTemplate>
     <DataTemplate x:Key="PrzeciwnikTemplate" DataType="{x:Type types:Gracz}">
         <StackPanel>
-            <TextBlock Text="{Binding Nazwa}"/>
-            <Image Source="{Binding Miasto.Obrazek}" Stretch="Uniform"/>
+            <TextBlock Text="{Binding Nazwa}" TextAlignment="Center"/>
+            <TextBlock Text="{Binding Miasto.Nazwa}" TextAlignment="Center"/>
+            <Image Source="{Binding Miasto.Obrazek}" Stretch="Uniform" Height="40"/>
+            <ListBox ItemsSource="{Binding Karty}" ItemTemplate="{StaticResource KartaTemplate}"/>
         </StackPanel>
-    </DataTemplate>
-    <DataTemplate x:Key="KartaTemplate" DataType="{x:Type types:Karta}">
-        
     </DataTemplate>
 </ResourceDictionary>
