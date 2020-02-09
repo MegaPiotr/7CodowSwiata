@@ -10,16 +10,12 @@ namespace SevenWondersCommon
     {
         public string Nazwa { get; set; }
         public List<Surowiec> Zasoby { get; set; }
-        public Dictionary<WartoscZetonuWojny, int> ZetonyWojny { get; set; }
+        public List<ZetonWojny> ZetonyWojny { get; set; }
         public List<Karta> Karty { get; set; }
+        public List<Karta> KartyWRece { get; set; }
+        public List<Karta> KartyCzekajace { get; set; }
         public Miasto Miasto { get; set; }
-        public List<Cod> Coda { get; set; }
+        public List<Cod> CodaZbudowane { get; set; }
     }
-    public enum WartoscZetonuWojny
-    {
-        Minus1,
-        Plus1,
-        Plus3,
-        Plus5
-    }
+    
 }

@@ -97,6 +97,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
+    <Page Include="Resources\InneDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\TemplatesDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -135,6 +139,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\Znaczniki\" />
     <Folder Include="Service\" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +153,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Karty\Gra\cegielnia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Inne\sale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Inne\build.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,8 +9,9 @@
         Height="900"
         Width="1200"
         Title="MVVM Light Application"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        WindowState="Maximized" Background="AntiqueWhite" x:Name="GameMainWindow">
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,13 +19,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top">
-            <!--<StackPanel.Background>
-                <ImageBrush ImageSource="{Binding Gracz.Miasto.Obrazek}" Stretch="Uniform"/>
-            </StackPanel.Background>-->
-            <ListBox ItemsSource="{Binding Gracze}" ItemTemplate="{StaticResource PrzeciwnikTemplate}">
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top" Background="Transparent">
+            <ListBox ItemsSource="{Binding Gracze}" ItemTemplate="{StaticResource PrzeciwnikTemplate}" Background="Transparent" BorderThickness="0">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -33,10 +30,14 @@
             </ListBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-            <ListBox ItemsSource="{Binding Karty}">
+            <ListBox ItemsSource="{Binding Karty}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="{x:Type types:Karta}">
-                        <Image Source="{Binding Obrazek}"/>
+                        <Image
+                            Source="{Binding Obrazek}" Stretch="Uniform" 
+                            Height="{Binding Path=DataContext.CardH, ElementName=GameMainWindow, Mode=OneWay}"
+                            Width="{Binding Path=DataContext.cardW, ElementName=GameMainWindow, Mode=OneWay}"
+                            />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.ItemsPanel>
@@ -51,6 +52,39 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
+        </StackPanel>
+        <StackPanel>
+            <StackPanel.Background>
+                <ImageBrush ImageSource="{Binding Gracz.Miasto.Obrazek}" Stretch="Uniform" Opacity=".7"/>
+            </StackPanel.Background>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Rectangle
+                Width="{Binding CardW, Mode=OneWay}"
+                Height="{Binding CardH, Mode=OneWay}"
+                Stroke="Black" StrokeThickness="1"
+                RadiusX="10" RadiusY="10">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource build}" Opacity=".7" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center">
+                        <ImageBrush.Transform>
+                            <ScaleTransform ScaleX=".5" ScaleY=".5" CenterX="70" CenterY="105"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle
+                Width="{Binding CardW, Mode=OneWay}"
+                Height="{Binding CardH, Mode=OneWay}"
+                Stroke="Black" StrokeThickness="1"
+                RadiusX="10" RadiusY="10">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{StaticResource sale}" Opacity=".7" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center">
+                        <ImageBrush.Transform>
+                            <ScaleTransform ScaleX=".5" ScaleY=".5" CenterX="70" CenterY="105"/>
+                        </ImageBrush.Transform>
+                    </ImageBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            </StackPanel>
         </StackPanel>
     </DockPanel>
 </Window>

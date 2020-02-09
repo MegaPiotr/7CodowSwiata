@@ -44,12 +44,14 @@
   <ItemGroup>
     <Compile Include="Cod.cs" />
     <Compile Include="Efekt.cs" />
+    <Compile Include="Gra.cs" />
     <Compile Include="Gracz.cs" />
     <Compile Include="Karta.cs" />
     <Compile Include="Miasto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RodzajSurowca.cs" />
     <Compile Include="Surowiec.cs" />
+    <Compile Include="ZetonWojny.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

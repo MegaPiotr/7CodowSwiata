@@ -5,19 +5,30 @@
                     xmlns:converters="clr-namespace:_7CodowSwiata.Converter">
     <converters:ColorEnumConverter x:Key="ColorEnumConverter" />
     <DataTemplate x:Key="KartaTemplate" DataType="{x:Type types:Karta}">
-        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <DockPanel.Background>
-                <SolidColorBrush Color="{Binding Kolor, Converter={StaticResource ColorEnumConverter}}"/>
-            </DockPanel.Background>
-        <TextBlock Text="{Binding Nazwa}" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DockPanel.Dock="Top"/>
-        </DockPanel>
+        <StackPanel Width="60">
+            <StackPanel.Background>
+                <SolidColorBrush Color="White" Opacity=".5"/>
+            </StackPanel.Background>
+        <TextBlock Text="{Binding Nazwa}" DockPanel.Dock="Top"/>
+        </StackPanel>
     </DataTemplate>
     <DataTemplate x:Key="PrzeciwnikTemplate" DataType="{x:Type types:Gracz}">
         <StackPanel>
             <TextBlock Text="{Binding Nazwa}" TextAlignment="Center"/>
             <TextBlock Text="{Binding Miasto.Nazwa}" TextAlignment="Center"/>
             <Image Source="{Binding Miasto.Obrazek}" Stretch="Uniform" Height="40"/>
-            <ListBox ItemsSource="{Binding Karty}" ItemTemplate="{StaticResource KartaTemplate}"/>
+            <ListBox ItemsSource="{Binding Karty}" ItemTemplate="{StaticResource KartaTemplate}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="{Binding Kolor, Converter={StaticResource ColorEnumConverter}}"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

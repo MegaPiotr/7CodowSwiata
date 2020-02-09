@@ -59,6 +59,20 @@ namespace _7CodowSwiata.ViewModel
         public Gracz Gracz { get; set; }
         public ObservableCollection<Gracz> Gracze { get; set; }
 
+        private int _CardW = 140;
+        public int CardW
+        {
+            get => _CardW;
+            set
+            {
+                _CardW = value;
+                RaisePropertyChanged();
+            }
+        } 
+        public int CardH {
+            get;
+            set; } = 210;
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -78,9 +92,23 @@ namespace _7CodowSwiata.ViewModel
                 Obrazek = (ImageSource)Application.Current.Resources["cegielnia"],
                 Kolor = KolorKarty.Brazowa
             };
+            var karta2 = new Karta()
+            {
+                Efekty = new List<Efekt>()
+                    {
+                        new Efekt(TypEfektu.Produkcja, Dzialanie.DodajCegle, 1)
+                    },
+                Koszt = new List<Surowiec>()
+                    {
+                        new Surowiec(RodzajSurowca.Moneta, 1)
+                    },
+                Nazwa = "Gej",
+                Obrazek = (ImageSource)Application.Current.Resources["cegielnia"],
+                Kolor = KolorKarty.Zielona
+            };
             Gracz = new Gracz()
             {
-                Coda = new List<Cod>(),
+                CodaZbudowane = new List<Cod>(),
                 Karty = new List<Karta>()
                 {
                     karta,karta,karta,karta,karta
@@ -135,16 +163,75 @@ namespace _7CodowSwiata.ViewModel
                 },
                 Nazwa = "Piotrek",
                 Zasoby = new List<Surowiec>(),
-                ZetonyWojny = new Dictionary<WartoscZetonuWojny, int>()
+                ZetonyWojny = new List<ZetonWojny>()
             };
-            
+            var gracz = new Gracz()
+            {
+                CodaZbudowane = new List<Cod>(),
+                Karty = new List<Karta>()
+                {
+                    karta,karta,karta2,karta,karta
+                },
+                Miasto = new Miasto()
+                {
+                    Coda = new List<Cod>()
+                    {
+                        new Cod()
+                        {
+                            Efekty = new List<Efekt>
+                            {
+                                new Efekt(TypEfektu.Handel, Dzialanie.TaniHandelZLewymSasiadem),
+                                new Efekt(TypEfektu.Handel, Dzialanie.TaniHandelZPrawymSasiadem)
+                            },
+                            Koszt = new List<Surowiec>()
+                            {
+                                new Surowiec(RodzajSurowca.Drewno, 2)
+                            },
+                            Poziom = 1
+                        },
+                        new Cod()
+                        {
+                            Efekty = new List<Efekt>
+                            {
+                                new Efekt(TypEfektu.LiczeniePunktow, Dzialanie.DodajPunkty, 5)
+                            },
+                            Koszt = new List<Surowiec>()
+                            {
+                                new Surowiec(RodzajSurowca.Kamien, 2)
+                            }
+                        },
+                        new Cod()
+                        {
+                            Efekty = new List<Efekt>
+                            {
+                                new Efekt(TypEfektu.JednorazowayEra, Dzialanie.KopiowanieGildiiOdSasiadow)
+                            },
+                            Koszt = new List<Surowiec>()
+                            {
+                                new Surowiec(RodzajSurowca.Zloto, 2),
+                                new Surowiec(RodzajSurowca.Tkanina, 1)
+                            }
+                        }
+                    },
+                    Efekty = new List<Efekt>()
+                    {
+                        new Efekt(TypEfektu.Produkcja, Dzialanie.DodajDrewno, 1)
+                    },
+                    Nazwa = "OLYMPIA",
+                    Obrazek = (ImageSource)Application.Current.Resources["olympia"],
+                },
+                Nazwa = "Piotrek",
+                Zasoby = new List<Surowiec>(),
+                ZetonyWojny = new List<ZetonWojny>()
+            };
+
             Karty = new ObservableCollection<Karta>()
             {
                 karta,karta,karta,karta,karta,karta,karta
             };
             Gracze = new ObservableCollection<Gracz>()
             {
-                Gracz,Gracz,Gracz,Gracz,Gracz,Gracz,Gracz
+                Gracz,gracz,Gracz,Gracz,Gracz,Gracz,gracz
             };
         }
     }
