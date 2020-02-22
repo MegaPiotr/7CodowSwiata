@@ -14,7 +14,8 @@ namespace _7CodowSwiata.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is KolorKarty)
+            if(value is null) return Color.FromRgb(0, 0, 0);
+            if (value is KolorKarty)
             {
                 switch((KolorKarty)value)
                 {

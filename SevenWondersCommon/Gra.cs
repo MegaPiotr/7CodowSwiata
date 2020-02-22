@@ -14,14 +14,7 @@ namespace SevenWondersCommon
 
         public void WykonajRuch(Ruch ruch)
         {
-            if(ruch.Cod != null)
-            {
-                //budowa códu
-            }
-            else
-            {
-                //wykorzystanie karty
-            }
+
         }
         public void CofnijRuch()
         {
@@ -38,14 +31,23 @@ namespace SevenWondersCommon
     }
     public class Ruch
     {
-        public Ruch(Gracz gracz, Karta karta, Cod cod = null)
+        public Ruch(Gracz gracz)
         {
             Gracz = gracz;
+        }
+        public Ruch(Gracz gracz, Karta karta, TypRuchu typ ):this(gracz)
+        {
             Karta = karta;
-            Cod = cod;
+            Typ = typ;
         }
         public Gracz Gracz { get; set; }
         public Karta Karta { get; set; }
-        public Cod Cod { get; set; }
+        public TypRuchu Typ { get; set; }
+    }
+    public enum TypRuchu
+    {
+        Budowa,
+        Sprzedaz,
+        Cud
     }
 }

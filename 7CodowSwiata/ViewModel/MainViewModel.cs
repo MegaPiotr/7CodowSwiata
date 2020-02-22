@@ -5,6 +5,9 @@ using SevenWondersCommon;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.CommandWpf;
+using System;
 
 namespace _7CodowSwiata.ViewModel
 {
@@ -53,10 +56,29 @@ namespace _7CodowSwiata.ViewModel
 
         #endregion
 
+        //private ICommand _AfterDragCommand;
+        public ICommand BeforeDragCommand => new RelayCommand(WybierzKarte);
+        public ICommand AfterDragCommand => new RelayCommand<DragDropEffects>(AfterDrag);
+
         public ObservableCollection<Karta> Karty { get; set; }
         public ObservableCollection<Karta> KartyNaKtoreStac { get; set; }
+
+        //zaznaczona na liście
+        private Karta _ZaznaczonaKarta;
+        public Karta ZaznaczonaKarta
+        {
+            get => _ZaznaczonaKarta;
+            set
+            {
+                _ZaznaczonaKarta = value;
+                RaisePropertyChanged();
+            }
+        }
+        //przeciągana
         public Karta WybranaKarta { get; set; }
+        public Ruch Ruch { get; set; }
         public Gracz Gracz { get; set; }
+        public Gra Gra { get; set; } = new Gra();//todo jakoś rozpocząć grę
         public ObservableCollection<Gracz> Gracze { get; set; }
 
         private int _CardW = 140;
@@ -73,6 +95,33 @@ namespace _7CodowSwiata.ViewModel
             get;
             set; } = 210;
 
+        
+        public void WybierzKarte()
+        {
+            WybranaKarta = ZaznaczonaKarta;
+            Karty.Remove(ZaznaczonaKarta);
+        }
+        public void WykonajRuch(TypRuchu ruch)
+        {
+            CofnijRuch();
+            Ruch = new Ruch(Gracz, WybranaKarta, ruch);
+            Gra.WykonajRuch(Ruch);
+        }
+        public void CofnijRuch()
+        {
+            if (Ruch != null)
+                Gra.CofnijRuch();
+        }
+        public void ZaakceptujRuch()
+        {
+
+        }
+        public void AfterDrag(DragDropEffects effects)
+        {
+            if(effects == DragDropEffects.None||effects == DragDropEffects.Link)
+                Karty.Add(WybranaKarta);
+            WybranaKarta = null;
+        }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>

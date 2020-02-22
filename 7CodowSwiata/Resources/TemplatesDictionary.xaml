@@ -4,6 +4,7 @@
                     xmlns:types="clr-namespace:SevenWondersCommon;assembly=SevenWondersCommon"
                     xmlns:converters="clr-namespace:_7CodowSwiata.Converter">
     <converters:ColorEnumConverter x:Key="ColorEnumConverter" />
+    <converters:AfterDragEventArgsConverter x:Key="AfterDragConverter" />
     <DataTemplate x:Key="KartaTemplate" DataType="{x:Type types:Karta}">
         <StackPanel Width="60">
             <StackPanel.Background>
@@ -20,10 +21,9 @@
             <ListBox ItemsSource="{Binding Karty}" ItemTemplate="{StaticResource KartaTemplate}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        
                         <Setter Property="Background">
                             <Setter.Value>
-                                <SolidColorBrush Color="{Binding Kolor, Converter={StaticResource ColorEnumConverter}}"/>
+                                <SolidColorBrush Color="{Binding Path=Kolor, Converter={StaticResource ColorEnumConverter}}"/>
                             </Setter.Value>
                         </Setter>
                     </Style>

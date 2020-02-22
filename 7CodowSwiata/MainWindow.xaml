@@ -5,6 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:types="clr-namespace:SevenWondersCommon;assembly=SevenWondersCommon" 
+        xmlns:controls="clr-namespace:_7CodowSwiata.Controls" 
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d ignore"
         Height="900"
         Width="1200"
@@ -30,60 +34,84 @@
             </ListBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-            <ListBox ItemsSource="{Binding Karty}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center">
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{x:Type types:Karta}">
-                        <Image
-                            Source="{Binding Obrazek}" Stretch="Uniform" 
-                            Height="{Binding Path=DataContext.CardH, ElementName=GameMainWindow, Mode=OneWay}"
-                            Width="{Binding Path=DataContext.cardW, ElementName=GameMainWindow, Mode=OneWay}"
+            <controls:DragAndDropContainer AllowDrop="True" AllowDrag="True" DDEffects="Move" DragData="{Binding ZaznaczonaKarta, Mode=OneWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="BeforeDrag">
+                        <cmd:EventToCommand Command="{Binding Mode=OneTime, Path=BeforeDragCommand}" CommandParameter=""/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="AfterDrag">
+                        <cmd:EventToCommand Command="{Binding Mode=OneTime, Path=AfterDragCommand}" EventArgsConverter="{StaticResource AfterDragConverter}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListBox ItemsSource="{Binding Karty}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" SelectedItem="{Binding ZaznaczonaKarta}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type types:Karta}">
+                            <Image Source="{Binding Obrazek}" Stretch="Uniform" 
+                                Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                         AncestorType={x:Type Window}},
+                                                         Path=DataContext.CardH}"
+                                Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                         AncestorType={x:Type Window}},
+                                                         Path=DataContext.CardW}"
                             />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="Margin" Value="0"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </controls:DragAndDropContainer>
         </StackPanel>
         <StackPanel>
             <StackPanel.Background>
                 <ImageBrush ImageSource="{Binding Gracz.Miasto.Obrazek}" Stretch="Uniform" Opacity=".7"/>
             </StackPanel.Background>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Rectangle
+                <controls:DragAndDropContainer AllowDrop="True" AllowDrag="True" DDEffects="Move" DragData="{Binding RelativeSource={RelativeSource Self}, Path=DropData, Mode=OneWay}">
+                    <Rectangle
                 Width="{Binding CardW, Mode=OneWay}"
                 Height="{Binding CardH, Mode=OneWay}"
                 Stroke="Black" StrokeThickness="1"
                 RadiusX="10" RadiusY="10">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{StaticResource build}" Opacity=".7" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center">
-                        <ImageBrush.Transform>
-                            <ScaleTransform ScaleX=".5" ScaleY=".5" CenterX="70" CenterY="105"/>
-                        </ImageBrush.Transform>
-                    </ImageBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle
+                        <!--<Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource build}" Opacity=".7" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center">
+                                <ImageBrush.Transform>
+                                    <ScaleTransform ScaleX=".5" ScaleY=".5" CenterX="70" CenterY="105"/>
+                                </ImageBrush.Transform>
+                            </ImageBrush>
+                        </Rectangle.Fill>-->
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type controls:DragAndDropContainer}},
+                                Path=DropData.Obrazek,
+                                FallbackValue={StaticResource build},
+                                TargetNullValue={StaticResource build}}" 
+                                Stretch="Uniform" AlignmentX="Center" AlignmentY="Center">
+                            </ImageBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </controls:DragAndDropContainer>
+                <controls:DragAndDropContainer AllowDrop="True" AllowDrag="True" DDEffects="Move" DragData="{Binding RelativeSource={RelativeSource Self}, Path=DropData, Mode=OneWay}">
+                    <Rectangle
                 Width="{Binding CardW, Mode=OneWay}"
                 Height="{Binding CardH, Mode=OneWay}"
                 Stroke="Black" StrokeThickness="1"
                 RadiusX="10" RadiusY="10">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="{StaticResource sale}" Opacity=".7" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center">
-                        <ImageBrush.Transform>
-                            <ScaleTransform ScaleX=".5" ScaleY=".5" CenterX="70" CenterY="105"/>
-                        </ImageBrush.Transform>
-                    </ImageBrush>
-                </Rectangle.Fill>
-            </Rectangle>
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                         AncestorType={x:Type controls:DragAndDropContainer}},
+                                                         Path=DropData.Obrazek}" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </controls:DragAndDropContainer>
             </StackPanel>
         </StackPanel>
     </DockPanel>
