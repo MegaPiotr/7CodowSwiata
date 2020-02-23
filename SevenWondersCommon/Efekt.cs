@@ -28,6 +28,8 @@ namespace SevenWondersCommon
         DodajTkanine,
         DodajCegle,
         DodajPunkty,
+        DodajDrewnoKamienZlotoLubCegle,
+        DodajPunktyWojny,
         TaniHandelZLewymSasiadem,
         TaniHandelZPrawymSasiadem,
         KopiowanieGildiiOdSasiadow,

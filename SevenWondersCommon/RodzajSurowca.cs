@@ -11,6 +11,7 @@ namespace SevenWondersCommon
         Zloto,
         Kamien,
         Drewno,
+        Cegla,
         Szklo,
         Papier,
         Tkanina,

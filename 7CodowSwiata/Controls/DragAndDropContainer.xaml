@@ -7,9 +7,5 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Drop="ContentControl_Drop"
-                PreviewMouseLeftButtonDown="ContentControl_PreviewMouseLeftButtonDown"
-                PreviewMouseLeftButtonUp="ContentControl_PreviewMouseLeftButtonUp"
-                PreviewMouseMove="ContentControl_PreviewMouseMove"
-                QueryContinueDrag="ContentControl_QueryContinueDrag"
-                GiveFeedback="ContentControl_GiveFeedback">
+                PreviewMouseMove="ContentControl_PreviewMouseMove">
 </ContentControl>

@@ -74,7 +74,10 @@
       <DependentUpon>DragAndDropContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\AfterDragEventArgsConverter.cs" />
+    <Compile Include="Converter\BeforeDragEventArgsConverter.cs" />
+    <Compile Include="Converter\DDEventArgsConverter.cs" />
     <Compile Include="Converter\ColorEnumConverter.cs" />
+    <Compile Include="Converter\TypRuchuToBoolConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
@@ -167,6 +170,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Inne\build.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Karty\Gra\karawanseraj.png" />
+    <Resource Include="Assets\Karty\Gra\stajnie.png" />
+    <Resource Include="Assets\Karty\Gra\warsztattkacki.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Karty\Gra\laboratorium.png" />
+    <Resource Include="Assets\Karty\Gra\sad.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Karty\Gra\odlewnia1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

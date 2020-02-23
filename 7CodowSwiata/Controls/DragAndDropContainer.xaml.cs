@@ -24,9 +24,6 @@ namespace _7CodowSwiata.Controls
         public DragAndDropContainer()
         {
             InitializeComponent();
-            this.DragEnter += DragAndDropContainer_DragEnter;
-            this.DragLeave += DragAndDropContainer_DragLeave;
-            this.DragOver += DragAndDropContainer_DragOver;
         }
 
         private void DragAndDropContainer_DragOver(object sender, DragEventArgs e)
@@ -66,8 +63,8 @@ namespace _7CodowSwiata.Controls
             }
         }
 
-        public event EventHandler<BeforeDragEventArgs> BeforeDrag;
-        public event EventHandler<AfterDragEventArgs> AfterDrag;
+        public event EventHandler<DDEventArgs> BeforeDrag;
+        public event EventHandler<DDEventArgs> AfterDrag;
 
         #region Drag
 
@@ -110,8 +107,6 @@ namespace _7CodowSwiata.Controls
             set { SetValue(DDEffectsProperty, value); }
         }
 
-        private bool IsMouseButtonPressed { get; set; }
-
         #endregion
 
         #region Drop
@@ -136,53 +131,30 @@ namespace _7CodowSwiata.Controls
             DropData = e.Data.GetData("Data");
         }
 
-        private void ContentControl_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //IsMouseButtonPressed = true;
-        }
-
-        private void ContentControl_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            //IsMouseButtonPressed = false;
-        }
-
         private void ContentControl_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed && AllowDrag&&DragData!=null)
+            if (e.LeftButton == MouseButtonState.Pressed && AllowDrag && DragData!=null)
             {
                 DataObject dataObj = new DataObject();
                 dataObj.SetData("Data", DragData);
-                BeforeDrag?.Invoke(this, new BeforeDragEventArgs(DragData));
+                BeforeDrag?.Invoke(this, new DDEventArgs(DDEffects, DragData));
                 DragDropEffects effect = DragDrop.DoDragDrop(this, dataObj, DDEffects);
-                AfterDrag?.Invoke(this, new AfterDragEventArgs(effect, DragData));
+                AfterDrag?.Invoke(this, new DDEventArgs(effect, DragData));
+                if(effect == DragDropEffects.Move)
+                {
+
+                }
             }
         }
-
-        private void ContentControl_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
-        {
-            
-        }
-
-        private void ContentControl_GiveFeedback(object sender, GiveFeedbackEventArgs e)
-        {
-        }
     }
-    public class AfterDragEventArgs:EventArgs
+    public class DDEventArgs:EventArgs
     {
-        public AfterDragEventArgs(DragDropEffects effects, object data)
+        public DDEventArgs(DragDropEffects effects, object data)
         {
             Effects = effects;
             Data = data;
         }
         public DragDropEffects Effects { get; set; }
-        public object Data { get; set; }
-    }
-    public class BeforeDragEventArgs : EventArgs
-    {
-        public BeforeDragEventArgs(object data)
-        {
-            Data = data;
-        }
         public object Data { get; set; }
     }
 }

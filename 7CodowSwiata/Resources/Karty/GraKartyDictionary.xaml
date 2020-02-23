@@ -2,4 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:_7CodowSwiata.Resources.Karty">
     <BitmapImage x:Key="cegielnia" UriSource="..\..\Assets\Karty\Gra\cegielnia.png"></BitmapImage>
+
+    <BitmapImage x:Key="karawana" UriSource="..\..\Assets\Karty\Gra\karawanseraj.png"></BitmapImage>
+    <BitmapImage x:Key="laboratorium" UriSource="..\..\Assets\Karty\Gra\laboratorium.png"></BitmapImage>
+    <BitmapImage x:Key="odlewnia" UriSource="..\..\Assets\Karty\Gra\odlewnia1.png"></BitmapImage>
+    <BitmapImage x:Key="sad" UriSource="..\..\Assets\Karty\Gra\sad.png"></BitmapImage>
+    <BitmapImage x:Key="stajnie" UriSource="..\..\Assets\Karty\Gra\stajnie.png"></BitmapImage>
+    <BitmapImage x:Key="warsztattkacki" UriSource="..\..\Assets\Karty\Gra\warsztattkacki.png"></BitmapImage>
 </ResourceDictionary>
