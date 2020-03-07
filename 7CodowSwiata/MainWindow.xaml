@@ -24,6 +24,9 @@
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel LastChildFill="True">
+        <DockPanel.Background>
+            <ImageBrush ImageSource="{Binding Gracz.Miasto.Obrazek}" Stretch="Uniform" Opacity=".7"/>
+        </DockPanel.Background>
         <StackPanel DockPanel.Dock="Top" Background="Transparent">
             <ListBox ItemsSource="{Binding Gracze}" ItemTemplate="{StaticResource PrzeciwnikTemplate}" Background="Transparent" BorderThickness="0">
                 <ListBox.ItemsPanel>
@@ -34,7 +37,12 @@
             </ListBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
-            <controls:DragAndDropContainer AllowDrop="True" AllowDrag="True" DDEffects="Move" DragData="{Binding ZaznaczonaKarta, Mode=OneWay}">
+            <controls:DragAndDropContainer 
+                AllowDrop="True" 
+                AllowDrag="True" 
+                DDEffects="Move" 
+                DragData="{Binding ZaznaczonaKarta, Mode=OneWay}"
+                DropDataTemplate="{StaticResource KartaDuzaTemplate}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="BeforeDrag">
                         <cmd:EventToCommand Command="{Binding Mode=OneTime, Path=BeforeDragListaCommand}" EventArgsConverter="{StaticResource BeforeDragEventArgsConverter}" PassEventArgsToCommand="True"/>
@@ -46,19 +54,12 @@
                         <cmd:EventToCommand Command="{Binding Mode=OneTime, Path=DropListaCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ListBox ItemsSource="{Binding Karty}" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" SelectedItem="{Binding ZaznaczonaKarta}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type types:Karta}">
-                            <Image Source="{Binding Obrazek}" Stretch="Uniform" 
-                                Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                         AncestorType={x:Type Window}},
-                                                         Path=DataContext.CardH}"
-                                Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                         AncestorType={x:Type Window}},
-                                                         Path=DataContext.CardW}"
-                            />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                <ListBox ItemsSource="{Binding Karty}" 
+                         Background="Transparent" 
+                         BorderThickness="0" 
+                         HorizontalAlignment="Center" 
+                         SelectedItem="{Binding ZaznaczonaKarta}"
+                         ItemTemplate="{StaticResource KartaDuzaTemplate}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -74,9 +75,6 @@
             </controls:DragAndDropContainer>
         </StackPanel>
         <StackPanel>
-            <StackPanel.Background>
-                <ImageBrush ImageSource="{Binding Gracz.Miasto.Obrazek}" Stretch="Uniform" Opacity=".7"/>
-            </StackPanel.Background>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <controls:DragAndDropContainer AllowDrop="True" AllowDrag="True" DDEffects="Move" DragData="{Binding RelativeSource={RelativeSource Self}, Path=DropData, Mode=OneWay}">
                     <i:Interaction.Triggers>
@@ -90,7 +88,7 @@
                             <cmd:EventToCommand Command="{Binding Mode=OneTime, Path=DropKartaCommand}" CommandParameter="{x:Static types:TypRuchu.Budowa}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <Rectangle Width="{Binding CardW, Mode=OneWay}" Height="{Binding CardH, Mode=OneWay}" Stroke="Black" StrokeThickness="1" RadiusX="10" RadiusY="10">
+                    <Rectangle Width="{StaticResource cardw}" Height="{StaticResource cardh}" Stroke="Black" StrokeThickness="1" RadiusX="10" RadiusY="10">
                         <Rectangle.Style>
                             <Style TargetType="Rectangle">
                                 <Style.Triggers>
@@ -138,7 +136,7 @@
                             <cmd:EventToCommand Command="{Binding Mode=OneTime, Path=DropKartaCommand}" CommandParameter="{x:Static types:TypRuchu.Sprzedaz}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <Rectangle Width="{Binding CardW, Mode=OneWay}" Height="{Binding CardH, Mode=OneWay}" 
+                    <Rectangle Width="{StaticResource cardw}" Height="{StaticResource cardh}" 
                                Stroke="Black" StrokeThickness="1" RadiusX="10" RadiusY="10">
                         <Rectangle.Style>
                             <Style TargetType="Rectangle">

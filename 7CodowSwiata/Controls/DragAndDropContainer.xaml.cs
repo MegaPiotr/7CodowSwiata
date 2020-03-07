@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,46 +26,24 @@ namespace _7CodowSwiata.Controls
         {
             InitializeComponent();
         }
-
-        private void DragAndDropContainer_DragOver(object sender, DragEventArgs e)
-        {
-            //DragAndDropContainer dadc = GetDragAndDropContainer((FrameworkElement)e.Source);
-            //if(dadc!=null&&dadc)
-            //{
-                
-            //}
-        }
-        //public DragAndDropContainer GetDragAndDropContainer(FrameworkElement fe)
-        //{
-        //    //var element = fe;
-        //    //while (!(element is DragAndDropContainer) && element != null)
-        //    //{
-        //    //    if (element.Parent is FrameworkElement)
-        //    //        element = (FrameworkElement)element.Parent;
-        //    //    else return null;
-        //    //}
-        //    //return (DragAndDropContainer)element;
-        //}
-
-        private void DragAndDropContainer_DragLeave(object sender, DragEventArgs e)
-        {
-            
-        }
-
-        private void DragAndDropContainer_DragEnter(object sender, DragEventArgs e)
-        {
-            if(e.Source is Rectangle)
-            {
-
-            }
-            if(e.RoutedEvent.OwnerType == typeof(DragAndDropContainer))
-            { 
-
-            }
-        }
-
+  
         public event EventHandler<DDEventArgs> BeforeDrag;
         public event EventHandler<DDEventArgs> AfterDrag;
+
+        private Window _DragDropWindow => (Window)FindResource("DragWindow");
+
+        public static readonly DependencyProperty DropDataTemplateProperty = DependencyProperty.Register("DropDataTemplate", typeof(DataTemplate), typeof(DragAndDropContainer), new PropertyMetadata(null, DropDataTemplatePropertyChanged));
+        private static void DropDataTemplatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((DragAndDropContainer)d).DropDataPropertyChanged(e.NewValue);
+        private void DropDataTemplatePropertyChanged(DataTemplate val)
+        {
+
+        }
+
+        public DataTemplate DropDataTemplate
+        {
+            get => (DataTemplate)GetValue(DropDataTemplateProperty);
+            set => SetValue(DropDataTemplateProperty, value);
+        }
 
         #region Drag
 
@@ -77,8 +56,8 @@ namespace _7CodowSwiata.Controls
 
         public object DragData
         {
-            get { return GetValue(DragDataProperty); }
-            set { SetValue(DragDataProperty, value); }
+            get => GetValue(DragDataProperty);
+            set => SetValue(DragDataProperty, value);
         }
 
         public static readonly DependencyProperty AllowDragProperty = DependencyProperty.Register("AllowDrag", typeof(bool), typeof(DragAndDropContainer), new PropertyMetadata(true, AllowDragPropertyChanged));
@@ -90,8 +69,8 @@ namespace _7CodowSwiata.Controls
 
         public bool AllowDrag
         {
-            get { return (bool)GetValue(AllowDragProperty); }
-            set { SetValue(AllowDragProperty, value); }
+            get => (bool)GetValue(AllowDragProperty);
+            set => SetValue(AllowDragProperty, value);
         }
 
         public static readonly DependencyProperty DDEffectsProperty = DependencyProperty.Register("DDEffects", typeof(DragDropEffects), typeof(DragAndDropContainer), new PropertyMetadata(DragDropEffects.All, DDEffectsPropertyChanged));
@@ -103,8 +82,8 @@ namespace _7CodowSwiata.Controls
 
         public DragDropEffects DDEffects
         {
-            get { return (DragDropEffects)GetValue(DDEffectsProperty); }
-            set { SetValue(DDEffectsProperty, value); }
+            get => (DragDropEffects)GetValue(DDEffectsProperty);
+            set => SetValue(DDEffectsProperty, value);
         }
 
         #endregion
@@ -120,8 +99,8 @@ namespace _7CodowSwiata.Controls
 
         public object DropData
         {
-            get { return GetValue(DropDataProperty); }
-            set { SetValue(DropDataProperty, value); }
+            get => GetValue(DropDataProperty);
+            set => SetValue(DropDataProperty, value);
         }
 
         #endregion
@@ -135,17 +114,55 @@ namespace _7CodowSwiata.Controls
         {
             if (e.LeftButton == MouseButtonState.Pressed && AllowDrag && DragData!=null)
             {
+                var data = DragData;
                 DataObject dataObj = new DataObject();
-                dataObj.SetData("Data", DragData);
-                BeforeDrag?.Invoke(this, new DDEventArgs(DDEffects, DragData));
+                dataObj.SetData("Data", data);
+                BeforeDrag?.Invoke(this, new DDEventArgs(DDEffects, data));
+                CreateDragDropWindow(data);
                 DragDropEffects effect = DragDrop.DoDragDrop(this, dataObj, DDEffects);
-                AfterDrag?.Invoke(this, new DDEventArgs(effect, DragData));
-                if(effect == DragDropEffects.Move)
-                {
-
-                }
+                if (_DragDropWindow.IsVisible)
+                    _DragDropWindow.Hide();
+                AfterDrag?.Invoke(this, new DDEventArgs(effect, data));
             }
         }
+
+        private void ContentControl_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+            Win32Point w32Mouse = new Win32Point();
+            GetCursorPos(ref w32Mouse);
+
+            _DragDropWindow.Left = w32Mouse.X;
+            _DragDropWindow.Top = w32Mouse.Y;
+        }
+
+        private void CreateDragDropWindow(object data)
+        {
+            if (DropDataTemplate != null)
+            {
+                var ctrl = DropDataTemplate.LoadContent() as FrameworkElement;
+                ctrl.DataContext = data;
+
+                _DragDropWindow.Content = ctrl;
+
+                Win32Point w32Mouse = new Win32Point();
+                GetCursorPos(ref w32Mouse);
+
+                _DragDropWindow.Left = w32Mouse.X;
+                _DragDropWindow.Top = w32Mouse.Y;
+                _DragDropWindow.Show();
+            }
+        }
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetCursorPos(ref Win32Point pt);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct Win32Point
+        {
+            public Int32 X;
+            public Int32 Y;
+        };
     }
     public class DDEventArgs:EventArgs
     {
