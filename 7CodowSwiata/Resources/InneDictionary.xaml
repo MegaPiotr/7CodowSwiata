@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:_7CodowSwiata.Resources">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <BitmapImage x:Key="build" UriSource="..\..\Assets\Inne\build.png"></BitmapImage>
     <BitmapImage x:Key="sale" UriSource="..\..\Assets\Inne\sale.png"></BitmapImage>
+    <sys:Double x:Key="cardw">140</sys:Double>
+    <sys:Double x:Key="cardh">210</sys:Double>
 </ResourceDictionary>

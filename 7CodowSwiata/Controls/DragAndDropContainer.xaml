@@ -7,5 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Drop="ContentControl_Drop"
-                PreviewMouseMove="ContentControl_PreviewMouseMove">
+                PreviewMouseMove="ContentControl_PreviewMouseMove"
+                GiveFeedback="ContentControl_GiveFeedback">
+    <ContentControl.Resources>
+        <ResourceDictionary>
+            <Window x:Key="DragWindow" 
+                    WindowStyle="None"
+                    AllowsTransparency="True"
+                    AllowDrop="False"
+                    Background="{x:Null}"
+                    IsHitTestVisible="False"
+                    SizeToContent="WidthAndHeight"
+                    Topmost="True"
+                    ShowInTaskbar="False"/>
+        </ResourceDictionary>
+    </ContentControl.Resources>
 </ContentControl>

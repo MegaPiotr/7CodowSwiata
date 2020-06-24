@@ -146,9 +146,6 @@ namespace _7CodowSwiata.ViewModel
         public Gra Gra { get; set; } = new Gra();//todo jakoś rozpocząć grę
         public ObservableCollection<Gracz> Gracze { get; set; }
 
-        public int CardW { get; set; } = 140;
-        public int CardH { get; set; } = 210;
-
         private Karta _AktualnieWybranaKarta;
         public Karta AktualnieWybranaKarta
         {

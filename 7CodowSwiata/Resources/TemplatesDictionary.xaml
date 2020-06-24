@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:types="clr-namespace:SevenWondersCommon;assembly=SevenWondersCommon"
                     xmlns:converters="clr-namespace:_7CodowSwiata.Converter">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="InneDictionary.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
     <converters:ColorEnumConverter x:Key="ColorEnumConverter" />
     <converters:AfterDragEventArgsConverter x:Key="AfterDragEventArgsConverter"/>
     <converters:BeforeDragEventArgsConverter x:Key="BeforeDragEventArgsConverter"/>
@@ -14,6 +18,11 @@
             </StackPanel.Background>
         <TextBlock Text="{Binding Nazwa}" DockPanel.Dock="Top"/>
         </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="KartaDuzaTemplate" DataType="{x:Type types:Karta}">
+        <Image Source="{Binding Obrazek}" Stretch="Uniform" 
+        Height="{StaticResource cardh}"
+        Width="{StaticResource cardw}"/>
     </DataTemplate>
     <DataTemplate x:Key="PrzeciwnikTemplate" DataType="{x:Type types:Gracz}">
         <StackPanel>
