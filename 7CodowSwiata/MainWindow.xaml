@@ -78,7 +78,12 @@
                 <ImageBrush ImageSource="{Binding Gracz.Miasto.Obrazek}" Stretch="Uniform" Opacity=".7"/>
             </StackPanel.Background>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <controls:DragAndDropContainer AllowDrop="True" AllowDrag="True" DDEffects="Move" DragData="{Binding RelativeSource={RelativeSource Self}, Path=DropData, Mode=OneWay}">
+                <controls:DragAndDropContainer AllowDrop="True" DDEffects="Move" 
+                                               DragData="{Binding RelativeSource={RelativeSource Self}, Path=DropData, Mode=OneWay}"
+                                               AllowDrag="{Binding TypRuchu, 
+                                        Converter={StaticResource TypRuchuToBoolConverter}, 
+                                        ConverterParameter={x:Static types:TypRuchu.Budowa}, 
+                                        Mode=OneWay}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="BeforeDrag">
                             <cmd:EventToCommand Command="{Binding Mode=OneTime, Path=BeforeDragKartaCommand}" EventArgsConverter="{StaticResource BeforeDragEventArgsConverter}" PassEventArgsToCommand="True"/>
@@ -126,7 +131,12 @@
                         </Rectangle.Style>
                     </Rectangle>
                 </controls:DragAndDropContainer>
-                <controls:DragAndDropContainer AllowDrop="True" AllowDrag="True" DDEffects="Move" DragData="{Binding RelativeSource={RelativeSource Self}, Path=DropData, Mode=OneWay}">
+                <controls:DragAndDropContainer AllowDrop="True" DDEffects="Move" 
+                                               DragData="{Binding RelativeSource={RelativeSource Self}, Path=DropData, Mode=OneWay}"
+                                               AllowDrag="{Binding TypRuchu, 
+                                        Converter={StaticResource TypRuchuToBoolConverter}, 
+                                        ConverterParameter={x:Static types:TypRuchu.Sprzedaz}, 
+                                        Mode=OneWay}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="BeforeDrag">
                             <cmd:EventToCommand Command="{Binding Mode=OneTime, Path=BeforeDragKartaCommand}" EventArgsConverter="{StaticResource BeforeDragEventArgsConverter}" PassEventArgsToCommand="True"/>
