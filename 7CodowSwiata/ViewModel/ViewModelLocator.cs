@@ -11,7 +11,6 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using _7CodowSwiata.Model;
 using CommonServiceLocator;
 
 namespace _7CodowSwiata.ViewModel

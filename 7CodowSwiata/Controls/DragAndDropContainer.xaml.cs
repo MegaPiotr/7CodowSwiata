@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static _7CodowSwiata.Controls.DragAndDropContainer;
 
 namespace _7CodowSwiata.Controls
 {
@@ -129,7 +130,7 @@ namespace _7CodowSwiata.Controls
         private void ContentControl_GiveFeedback(object sender, GiveFeedbackEventArgs e)
         {
             Win32Point w32Mouse = new Win32Point();
-            GetCursorPos(ref w32Mouse);
+            NativeMethods.GetCursorPos(ref w32Mouse);
 
             _DragDropWindow.Left = w32Mouse.X;
             _DragDropWindow.Top = w32Mouse.Y;
@@ -145,17 +146,13 @@ namespace _7CodowSwiata.Controls
                 _DragDropWindow.Content = ctrl;
 
                 Win32Point w32Mouse = new Win32Point();
-                GetCursorPos(ref w32Mouse);
+                NativeMethods.GetCursorPos(ref w32Mouse);
 
                 _DragDropWindow.Left = w32Mouse.X;
                 _DragDropWindow.Top = w32Mouse.Y;
                 _DragDropWindow.Show();
             }
-        }
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool GetCursorPos(ref Win32Point pt);
+        }   
 
         [StructLayout(LayoutKind.Sequential)]
         internal struct Win32Point
@@ -173,5 +170,12 @@ namespace _7CodowSwiata.Controls
         }
         public DragDropEffects Effects { get; set; }
         public object Data { get; set; }
+    }
+
+    public class NativeMethods
+    {
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetCursorPos(ref Win32Point pt);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using _7CodowSwiata.Model;
 using System.Collections.ObjectModel;
 using SevenWondersCommon;
 using System.Collections.Generic;
@@ -24,7 +23,6 @@ namespace _7CodowSwiata.ViewModel
 
         #region Kod automatycznie wygenerowany
 
-        private readonly IDataService _dataService;
 
         /// <summary>
         /// The <see cref="WelcomeTitle" /> property's name.
@@ -124,7 +122,8 @@ namespace _7CodowSwiata.ViewModel
             AktualnieWybranaKarta = null;
             TymczasowoWybranaKarta = null;
             TypRuchu = null;
-            Gra.CofnijRuch();
+            //todo obadać
+            //Gra.CofnijRuch();
         }
 
         public ObservableCollection<Karta> Karty { get; set; }
@@ -143,7 +142,7 @@ namespace _7CodowSwiata.ViewModel
         }
         //przeciągana
         public Gracz Gracz { get; set; }
-        public Gra Gra { get; set; } = new Gra();//todo jakoś rozpocząć grę
+        public Gra Gra { get; set; } //= new Gra();//todo jakoś rozpocząć grę
         public ObservableCollection<Gracz> Gracze { get; set; }
 
         private Karta _AktualnieWybranaKarta;
